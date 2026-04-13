@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayushmaan Bora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050505; 
+            color: #f4f4f0; 
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .serif { 
+            font-family: 'Playfair Display', serif; 
+        }
+        
+        .project-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+        }
+        .project-row:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        /* Ambient BG */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #050505;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            animation: float 25s infinite alternate ease-in-out;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #3b82f6; }
+        .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #8b5cf6; animation-delay: -10s; }
+        .orb-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #10b981; animation-delay: -5s; }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(10vw, 10vh) scale(1.2); }
+        }
+
+        /* View Switching Logic */
+        .view-section { display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .view-section.active { display: block; opacity: 1; }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <nav class="w-full px-8 md:px-16 py-12 flex flex-col md:flex-row justify-end items-start md:items-center text-sm font-medium tracking-wide sticky top-0 z-50 bg-transparent">
+        <div class="flex flex-row gap-8 text-gray-400">
+            <button onclick="navigate('home')" class="hover:text-white transition">Projects</button>
+            <button onclick="navigate('blogs')" class="hover:text-white transition">Blogs</button>
+            <a href="https://xeneva.com" target="_blank" class="hover:text-white transition">Xeneva ↗</a>
+        </div>
+    </nav>
+
+    <div id="view-home" class="view-section active">
+        <section class="w-full px-8 md:px-16 py-12 md:py-20">
+            <h1 class="text-6xl md:text-[8vw] font-medium leading-[1] tracking-tight mb-8">
+                <span class="italic">I'm</span> Ayushmaan Bora.
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-light text-gray-300 leading-tight mb-12 max-w-4xl serif italic">
+                Building the company, execution, strategy & management.
+            </h2>
+            <div class="w-full md:w-1/2 lg:w-1/3 text-base md:text-lg text-gray-400 leading-relaxed font-light">
+                <p>19-year-old Tech Entrepreneur. Currently full-time as the Co-Founder & CEO at <a href="https://xeneva.com" class="text-white border-b border-white/30 hover:border-white transition pb-1">Xeneva</a>, building the Aurora hybrid kernel and next-generation extended reality ecosystems.</p>
+            </div>
+        </section>
+
+        <section class="w-full px-8 md:px-16 py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-3">
+                    <h2 class="text-xs uppercase tracking-widest text-gray-500 font-semibold sticky top-32">Selected Work</h2>
+                </div>
+                <div class="lg:col-span-9 border-t border-white/10">
+                    
+                    <button onclick="navigate('project-env')" class="w-full text-left project-row py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group block -mx-4 px-4 md:-mx-8 md:px-8">
+                        <div class="w-full md:w-1/3">
+                            <h3 class="text-3xl font-medium transition-all">env</h3>
+                        </div>
+                        <div class="w-full md:w-1/2 text-gray-400 font-light text-base">
+                            Blockchain Infrastructure. Take info directly from the chain.
+                        </div>
+                        <div class="w-full md:w-auto text-right text-sm text-gray-500 group-hover:text-white transition">
+                            Read Case Study →
+                        </div>
+                    </button>
+
+                    <button onclick="navigate('project-liita')" class="w-full text-left project-row py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group block -mx-4 px-4 md:-mx-8 md:px-8">
+                        <div class="w-full md:w-1/3">
+                            <h3 class="text-3xl font-medium transition-all">Liita</h3>
+                        </div>
+                        <div class="w-full md:w-1/2 text-gray-400 font-light text-base">
+                            "Never be bored boarding." A social media app operating on flights via Bluetooth mesh.
+                        </div>
+                        <div class="w-full md:w-auto text-right text-sm text-gray-500 group-hover:text-white transition">
+                            Read Case Study →
+                        </div>
+                    </button>
+
+                    <button onclick="navigate('project-yapp')" class="w-full text-left project-row py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group block -mx-4 px-4 md:-mx-8 md:px-8">
+                        <div class="w-full md:w-1/3">
+                            <h3 class="text-3xl font-medium transition-all">YAPP</h3>
+                        </div>
+                        <div class="w-full md:w-1/2 text-gray-400 font-light text-base">
+                            Find your crowd. A social app to host, join, and discover house parties.
+                        </div>
+                        <div class="w-full md:w-auto text-right text-sm text-gray-500 group-hover:text-white transition">
+                            Read Case Study →
+                        </div>
+                    </button>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="w-full px-8 md:px-16 py-20 mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-3">
+                    <h2 class="text-xs uppercase tracking-widest text-gray-500 font-semibold sticky top-32">Blogs</h2>
+                </div>
+                <div class="lg:col-span-9 lg:pr-32">
+                    <div id="home-blog-container" class="mb-12"></div>
+                    
+                    <button onclick="navigate('blogs')" class="group flex items-center gap-4 text-white hover:text-gray-300 transition-all duration-300 border-b border-white/20 pb-2">
+                        <span class="text-lg font-light tracking-wide">View All Logs</span>
+                        <span class="group-hover:translate-x-2 transition-transform">↗</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="view-blogs" class="view-section">
+        <section class="w-full px-8 md:px-16 py-12 min-h-screen">
+            <button onclick="navigate('home')" class="text-sm text-gray-500 hover:text-white transition mb-16 flex items-center gap-2">
+                ← Back to Home
+            </button>
+            <h1 class="text-5xl md:text-7xl font-medium serif mb-20 leading-tight">The Logs.</h1>
+            
+            <div class="max-w-4xl">
+                <div id="full-blog-container" class="space-y-24"></div>
+            </div>
+        </section>
+    </div>
+
+    <div id="view-project-env" class="view-section">
+        <section class="w-full px-8 md:px-16 py-12 min-h-screen">
+            <button onclick="navigate('home')" class="text-sm text-gray-500 hover:text-white transition mb-16 flex items-center gap-2">
+                ← Back to Projects
+            </button>
+            
+            <div class="max-w-5xl">
+                <div class="mb-4 text-xs text-gray-500 font-medium tracking-widest uppercase">Infrastructure • 2025</div>
+                <h1 class="text-6xl md:text-8xl font-medium serif mb-8 leading-tight italic">env</h1>
+                
+                <p class="text-2xl text-gray-300 font-light leading-relaxed mb-12 max-w-3xl">
+                    A blockchain infrastructure project designed to extract and parse data directly from the chain for decentralized execution.
+                </p>
+
+                <a href="https://envblockchain.vercel.app/" target="_blank" class="inline-block border border-white/20 px-8 py-4 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 mb-20">
+                    Visit Live Project ↗
+                </a>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-white/10 pt-16">
+                    <div>
+                        <h3 class="text-xl serif italic mb-4">The Objective</h3>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            To build a seamless, lightweight interface that allows users to interact with blockchain infrastructure without the traditional friction of web3 gateways.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl serif italic mb-4">Core Responsibilities</h3>
+                        <ul class="text-gray-400 font-light leading-relaxed space-y-2">
+                            <li>• Strategy & Execution</li>
+                            <li>• Architecture Management</li>
+                            <li>• Vercel Deployment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="view-project-liita" class="view-section">
+        <section class="w-full px-8 md:px-16 py-12 min-h-screen">
+            <button onclick="navigate('home')" class="text-sm text-gray-500 hover:text-white transition mb-16 flex items-center gap-2">
+                ← Back to Projects
+            </button>
+            
+            <div class="max-w-5xl">
+                <div class="mb-4 text-xs text-gray-500 font-medium tracking-widest uppercase">Mesh Network • 2026</div>
+                <h1 class="text-6xl md:text-8xl font-medium serif mb-8 leading-tight italic">Liita</h1>
+                
+                <p class="text-2xl text-gray-300 font-light leading-relaxed mb-12 max-w-3xl">
+                    "Never be bored boarding." A decentralized social media application engineered to operate on flights at 35,000 feet without internet dependency, utilizing a custom Bluetooth mesh protocol.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-white/10 pt-16">
+                    <div>
+                        <h3 class="text-xl serif italic mb-4">The Objective</h3>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            Aviation communication is traditionally gated behind expensive, high-latency satellite Wi-Fi. Liita bypasses this entirely by turning passenger devices into a localized, peer-to-peer network, allowing seamless chatting and interaction while airborne.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl serif italic mb-4">Core Responsibilities</h3>
+                        <ul class="text-gray-400 font-light leading-relaxed space-y-2">
+                            <li>• Overall Product Strategy</li>
+                            <li>• Mesh Architecture Planning</li>
+                            <li>• Go-to-Market execution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="view-project-yapp" class="view-section">
+        <section class="w-full px-8 md:px-16 py-12 min-h-screen">
+            <button onclick="navigate('home')" class="text-sm text-gray-500 hover:text-white transition mb-16 flex items-center gap-2">
+                ← Back to Projects
+            </button>
+            
+            <div class="max-w-5xl">
+                <div class="mb-4 text-xs text-gray-500 font-medium tracking-widest uppercase">Social Layer • 2025</div>
+                <h1 class="text-6xl md:text-8xl font-medium serif mb-8 leading-tight italic">YAPP</h1>
+                
+                <p class="text-2xl text-gray-300 font-light leading-relaxed mb-12 max-w-3xl">
+                    A hyper-local social discovery platform. Find your crowd, host gatherings, and discover the best house parties in your city.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-white/10 pt-16">
+                    <div>
+                        <h3 class="text-xl serif italic mb-4">The Objective</h3>
+                        <p class="text-gray-400 font-light leading-relaxed">
+                            To bridge the gap between digital networks and real-world connections. YAPP acts as a social matchmaking layer, taking the friction out of finding high-quality events and linking users with the exact demographic and "vibe" they are looking for.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl serif italic mb-4">Core Responsibilities</h3>
+                        <ul class="text-gray-400 font-light leading-relaxed space-y-2">
+                            <li>• Concept & Execution</li>
+                            <li>• Demographic Targeting Strategy</li>
+                            <li>• Platform Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="w-full px-8 md:px-16 py-12 border-t border-white/10 flex justify-between items-center text-xs text-gray-500 mt-20">
+        <p>&copy; 2026 Ayushmaan Bora.</p>
+        <p>Manipal, IN</p>
+    </footer>
+
+    <script>
+        const blogs = [
+            {
+                title: "Running Agentic AI - Do you need a Mac Mini and a 4K display?",
+                date: "April 2026",
+                timestamp: "2026-04-12", 
+                content: `
+                    <p class="mb-6">No, you just need a $50 Raspberry Pi and a $10 display.</p>
+                    <p class="mb-6">This week, I gave in to the urge to try and run an autonomous agentic AI model myself. However, I did not have a 'state of the art' spare computer at my disposal.</p>
+                    <p class="mb-6">Well, it turns out - one doesn't need one either.</p>
+                    <p class="mb-6">I managed to run PicoClaw (A Golang rewrite of OpenClaw), which uses less than 10MB of RAM and connected it to a free Gemini API key. The results were impressive and I'm continuing to experiment further with this. I am left wondering if a device like this will be capable of becoming a Kernel Engineer for Xeneva someday!</p>
+                    <p class="italic text-gray-500 mt-8 border-l border-gray-700 pl-4">I'll elaborate on the model's performance and the setup process in my next post!</p>
+                `
+            }
+        ];
+
+        function navigate(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const target = document.getElementById('view-' + viewId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function renderBlogs() {
+            const sorted = blogs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            const blogTemplate = (post) => `
+                <article class="block cursor-default">
+                    <div class="mb-4 text-xs text-gray-500 font-medium tracking-widest uppercase">${post.date}</div>
+                    <h3 class="text-3xl md:text-4xl font-medium serif mb-6 leading-tight transition-all">${post.title}</h3>
+                    <div class="text-gray-300 leading-relaxed font-light text-base md:text-lg max-w-3xl">
+                        ${post.content}
+                    </div>
+                </article>
+            `;
+
+            document.getElementById('home-blog-container').innerHTML = blogTemplate(sorted[0]);
+            document.getElementById('full-blog-container').innerHTML = sorted.map(blogTemplate).join('<hr class="border-white/10 my-16">');
+        }
+
+        renderBlogs();
+    </script>
+</body>
+</html>
