@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ParticlePortrait from '../components/ParticlePortrait';
+import ParticlePortrait from '../../components/ParticlePortrait';
 
 export default function Home() {
   return (
@@ -14,18 +14,16 @@ export default function Home() {
           </p>
         </div>
 
-        {/* The Particle Portrait */}
         <div className="flex-shrink-0">
-          <ParticlePortrait imageSrc="/me.png" /> 
+          {/* Targets your actual profile.jpg file */}
+          <ParticlePortrait imageSrc="/profile.jpg" /> 
         </div>
       </div>
 
-      {/* Your existing sections (Projects, Links, etc.) */}
       <nav className="space-y-4">
         <Link href="/blog" className="block text-2xl font-bold hover:text-blue-500 transition-colors italic">
           THE_LOGS →
         </Link>
-        {/* Add more links here */}
       </nav>
     </main>
   );
