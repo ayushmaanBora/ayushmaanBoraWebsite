@@ -1,30 +1,73 @@
+import fs from 'fs';
+
+import path from 'path';
+
+import matter from 'gray-matter';
+
 import Link from 'next/link';
-import ParticlePortrait from '../../components/ParticlePortrait';
 
-export default function Home() {
+
+
+export default function BlogList() {
+
+  const postsDirectory = path.join(process.cwd(), 'content');
+
+  const filenames = fs.readdirSync(postsDirectory);
+
+
+
+  const posts = filenames.map((filename) => {
+
+    const filePath = path.join(postsDirectory, filename);
+
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+
+    const { data } = matter(fileContent);
+
+    return { ...data, slug: filename.replace('.md', '') };
+
+  });
+
+
+
+  // Sort: Newest to Oldest
+
+  const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+
+
   return (
-    <main className="max-w-3xl mx-auto py-24 px-6">
-      <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between mb-16 gap-8">
-        <div>
-          <h1 className="text-5xl font-black italic tracking-tighter mb-4">
-            AYUSHMAAN_BORA
-          </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-md">
-            I'm Ayushmaan Bora, a deep-tech founder building <span className="text-white">XenevaOS</span> and exploring the future of spatial computing.
-          </p>
-        </div>
 
-        <div className="flex-shrink-0">
-          {/* Targets your actual profile.jpg file */}
-          <ParticlePortrait imageSrc="/profile.jpg" /> 
-        </div>
+    <div className="max-w-3xl mx-auto py-20 px-6">
+
+      <Link href="/" className="text-zinc-500 hover:text-white mb-12 block">← BACK_TO_HOME</Link>
+
+      <h1 className="text-5xl font-black mb-12 italic tracking-tighter">THE_LOGS</h1>
+
+      
+
+      <div className="space-y-12">
+
+        {sortedPosts.map((post) => (
+
+          <div key={post.slug} className="group cursor-pointer">
+
+            <p className="text-xs text-zinc-500 mb-2">{post.date}</p>
+
+            <h2 className="text-2xl font-bold group-hover:text-blue-500 transition-colors">
+
+              {post.title}
+
+            </h2>
+
+          </div>
+
+        ))}
+
       </div>
 
-      <nav className="space-y-4">
-        <Link href="/blog" className="block text-2xl font-bold hover:text-blue-500 transition-colors italic">
-          THE_LOGS →
-        </Link>
-      </nav>
-    </main>
+    </div>
+
   );
+
 }
