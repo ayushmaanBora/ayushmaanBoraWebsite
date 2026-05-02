@@ -1,51 +1,37 @@
-import ProjectCard from '@/components/ProjectCard';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 import Link from 'next/link';
 
-export default function Home() {
-  return (
-    <main className="max-w-5xl mx-auto px-6 py-20">
-      {/* HUD Header */}
-      <section className="mb-32">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
-          <span className="text-xs text-green-500 uppercase tracking-widest">System Online: Aurora Kernel v1.0</span>
-        </div>
-        <h1 className="text-7xl font-black tracking-tighter mb-4 italic">
-          AYUSHMAAN BORA
-        </h1>
-        <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed">
-          19yo Tech Entrepreneur. Co-Founder @ <span className="text-white font-bold underline decoration-blue-500">Xeneva</span>. 
-          Building hybrid kernels and hardware to kill the smartphone.
-        </p>
-        <div className="mt-8 flex gap-4">
-          <Link href="/blog" className="px-6 py-3 bg-white text-black font-bold hover:bg-blue-500 hover:text-white transition-all">
-            READ LOG_FILES
-          </Link>
-        </div>
-      </section>
+export default function BlogList() {
+  const postsDirectory = path.join(process.cwd(), 'content');
+  const filenames = fs.readdirSync(postsDirectory);
 
-      {/* Projects Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
-        <ProjectCard 
-          title="env" 
-          tagline="Blockchain Infrastructure" 
-          desc="Built for the next generation of decentralized execution." 
-          link="https://envblockchain.vercel.app/"
-        />
-        <ProjectCard 
-          title="Liita" 
-          tagline="Never be bored boarding." 
-          desc="Decentralized mesh-network app for flight communication via Bluetooth. No internet required." 
-        />
-        <ProjectCard 
-          title="YAPP" 
-          tagline="Find Your Crowd." 
-          desc="The social layer for finding and hosting the best house parties in the city." 
-        />
-        <div className="border border-dashed border-zinc-800 rounded-xl p-8 flex items-center justify-center">
-          <p className="text-zinc-600 italic">More classified projects in development...</p>
-        </div>
-      </section>
-    </main>
+  const posts = filenames.map((filename) => {
+    const filePath = path.join(postsDirectory, filename);
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const { data } = matter(fileContent);
+    return { ...data, slug: filename.replace('.md', '') };
+  });
+
+  // Sort: Newest to Oldest
+  const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  return (
+    <div className="max-w-3xl mx-auto py-20 px-6">
+      <Link href="/" className="text-zinc-500 hover:text-white mb-12 block">← BACK_TO_HOME</Link>
+      <h1 className="text-5xl font-black mb-12 italic tracking-tighter">THE_LOGS</h1>
+      
+      <div className="space-y-12">
+        {sortedPosts.map((post) => (
+          <div key={post.slug} className="group cursor-pointer">
+            <p className="text-xs text-zinc-500 mb-2">{post.date}</p>
+            <h2 className="text-2xl font-bold group-hover:text-blue-500 transition-colors">
+              {post.title}
+            </h2>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
